@@ -1,35 +1,62 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import Menu from "./components/Menu";
+import DisallowedWords from "./components/DisallowedWords";
+import Similarities from "./components/Similarities";
+import AdminPage from "./components/AdminPage";
 
-function App() {
-  const [count, setCount] = useState(0)
+const AppContainer = styled.div`
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+`;
+
+const VISIBILITY_KEY = "similaritiesVisibility";
+
+const App: React.FC = () => {
+  const [currentPage, setCurrentPage] = useState("DisallowedWords");
+  const [similaritiesVisible, setSimilaritiesVisible] = useState<boolean>(
+    () => {
+      // Load initial state from localStorage
+      const savedVisibility = localStorage.getItem(VISIBILITY_KEY);
+      return savedVisibility ? JSON.parse(savedVisibility) : false;
+    }
+  );
+
+  useEffect(() => {
+    // Store the current visibility in localStorage whenever it changes
+    localStorage.setItem(VISIBILITY_KEY, JSON.stringify(similaritiesVisible));
+  }, [similaritiesVisible]);
+
+  const handleToggleVisibility = () => {
+    setSimilaritiesVisible((prevVisibility) => !prevVisibility);
+  };
+
+  const renderComponent = () => {
+    switch (currentPage) {
+      case "DisallowedWords":
+        return <DisallowedWords />;
+      case "Similarities":
+        return <Similarities visible={similaritiesVisible} />;
+      case "AdminPage":
+        return (
+          <AdminPage
+            onToggleVisibility={handleToggleVisibility}
+            isVisible={similaritiesVisible}
+          />
+        );
+      default:
+        return <DisallowedWords />;
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <AppContainer>
+      <Menu onSelect={setCurrentPage} />
+      {renderComponent()}
+    </AppContainer>
+  );
+};
 
-export default App
+export default App;
