@@ -13,23 +13,23 @@ const DisallowedWords: React.FC = () => {
       <tbody>
         <tr>
           <td>1</td>
-          <td>Word1</td>
-          <td>Parola1</td>
+          <td>Graduation</td>
+          <td>Laurea</td>
         </tr>
         <tr>
           <td>2</td>
-          <td>Word2</td>
-          <td>Parola2</td>
+          <td>University </td>
+          <td>Università</td>
         </tr>
         <tr>
           <td>3</td>
-          <td>Word3</td>
-          <td>Parola3</td>
+          <td>Professor </td>
+          <td>Professore/Professoressa</td>
         </tr>
         <tr>
           <td>4</td>
-          <td>Word4</td>
-          <td>Parola4</td>
+          <td>Thesis </td>
+          <td>Tesi</td>
         </tr>
       </tbody>
     </table>

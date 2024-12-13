@@ -4,7 +4,83 @@ interface SimilaritiesProps {
   visible: boolean;
 }
 
+interface TableRow {
+  number: number;
+  english: string;
+  italian: string;
+  hint: string;
+}
+
 const Similarities: React.FC<SimilaritiesProps> = ({ visible }) => {
+  const tableData: TableRow[] = [
+    {
+      number: 0,
+      english: "I am Italian",
+      italian: "Sono italiano",
+      hint: "country",
+    },
+    {
+      number: 1,
+      english: "I have a pet",
+      italian: "Ho un animale domestico",
+      hint: "animal",
+    },
+    {
+      number: 2,
+      english: "I have traveled outside of Europe",
+      italian: "Ho viaggiato fuori dall'Europa",
+      hint: "travel",
+    },
+    {
+      number: 3,
+      english: "I speak more than two languages",
+      italian: "Parlo più di due lingue",
+      hint: "languages",
+    },
+    {
+      number: 4,
+      english: "I have a driver's license",
+      italian: "Ho la patente di guida",
+      hint: "license",
+    },
+    {
+      number: 5,
+      english: "I play a musical instrument",
+      italian: "Suono uno strumento musicale",
+      hint: "instrument",
+    },
+    {
+      number: 6,
+      english: "I have been to a concert in the last year",
+      italian: "Sono stato a un concerto nell'ultimo anno",
+      hint: "concert",
+    },
+    {
+      number: 7,
+      english: "I like to cook",
+      italian: "Mi piace cucinare",
+      hint: "cook",
+    },
+    {
+      number: 8,
+      english: "I have siblings",
+      italian: "Ho fratelli o sorelle",
+      hint: "siblings",
+    },
+    {
+      number: 9,
+      english: "I have lived in more than one country",
+      italian: "Ho vissuto in più di un paese",
+      hint: "lived",
+    },
+    {
+      number: 10,
+      english: "I have participated in a marathon",
+      italian: "Ho partecipato a una maratona",
+      hint: "marathon",
+    },
+  ];
+
   return (
     <div>
       {!visible && <p>Nothing to see yet...</p>}
@@ -27,19 +103,25 @@ const Similarities: React.FC<SimilaritiesProps> = ({ visible }) => {
               <th style={{ borderBottom: "1px solid #ddd", padding: "8px" }}>
                 Italian
               </th>
+              <th style={{ borderBottom: "1px solid #ddd", padding: "8px" }}>
+                Hint
+              </th>
             </tr>
           </thead>
           <tbody>
-            {[...Array(10)].map((_, index) => (
-              <tr key={index}>
+            {tableData.map((row) => (
+              <tr key={row.number}>
                 <td style={{ padding: "8px", borderBottom: "1px solid #ddd" }}>
-                  {index + 1}
+                  {row.number}
                 </td>
                 <td style={{ padding: "8px", borderBottom: "1px solid #ddd" }}>
-                  Word{index + 1}
+                  {row.english}
                 </td>
                 <td style={{ padding: "8px", borderBottom: "1px solid #ddd" }}>
-                  Parola{index + 1}
+                  {row.italian}
+                </td>
+                <td style={{ padding: "8px", borderBottom: "1px solid #ddd" }}>
+                  {row.hint}
                 </td>
               </tr>
             ))}
